@@ -431,46 +431,6 @@ document.getElementById('create-server-form').addEventListener('submit', async (
                 });
             })
             .catch(error => console.error('Error loading servers:', error));
-function loadMessages(serverName, channel) {
-    fetch(`vendor/get_messages.php?server_id=${encodeURIComponent(serverName)}&channel_id=${encodeURIComponent(channel)}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                const chatLog = document.getElementById('chat-log');
-                chatLog.innerHTML = '';
-
-                data.messages.forEach(message => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message';
-
-                    const avatarImg = document.createElement('img');
-                    avatarImg.src = message.avatar;
-                    avatarImg.alt = 'User Avatar';
-                    avatarImg.className = 'avatar';
-                    messageDiv.appendChild(avatarImg);
-
-                    const messageContentDiv = document.createElement('div');
-                    messageContentDiv.className = 'message-content';
-
-                    const messageAuthorSpan = document.createElement('span');
-                    messageAuthorSpan.className = 'message-author';
-                    messageAuthorSpan.textContent = message.nickname;
-                    messageContentDiv.appendChild(messageAuthorSpan);
-
-                    const messageTextP = document.createElement('p');
-                    messageTextP.className = 'message-text';
-                    messageTextP.innerHTML = message.content;
-                    messageContentDiv.appendChild(messageTextP);
-
-                    messageDiv.appendChild(messageContentDiv);
-                    chatLog.appendChild(messageDiv);
-                });
-            } else {
-                console.error('Error loading messages:', data.message);
-            }
-        })
-        .catch(error => console.error('Error loading messages:', error));
-}
 
 
     </script>
